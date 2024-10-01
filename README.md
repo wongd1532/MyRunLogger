@@ -8,7 +8,8 @@ Goal: create a database for logging personal running data, then analyze using vi
     - [ ] Create Entity-Relationship Diagram
     - [ ] Relational Data Model
 - [ ] Physical Database Design
-    - [ ] Create Database in MySQL
+    - [ ] Write Database creation DDL statements in SQL
+    - [ ] Execute SQL statements to create database in MySQL
     - [ ] Data loading and testing
 - [ ] Data Modelling
     - [ ] Write SQL Queries for data extraction
