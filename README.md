@@ -19,7 +19,7 @@ Goal: create a database for logging personal running data, then analyze using vi
 ## PHASE 1️⃣: Conceptual Schema
 
 ### Entity Relationship Diagram
-![MyRunLogger Entity-Relationship-Diagram](https://github.com/wongd1532/MyRunLogger/blob/main/ERD.jpg?raw=true)
+![MyRunLogger Entity-Relationship-Diagram](https://github.com/wongd1532/MyRunLogger/blob/main/conceptual-schema/ERD.jpg?raw=true)
 
 ### Relational Data Model
 
