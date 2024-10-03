@@ -5,7 +5,7 @@ Goal: create a database for logging personal running data, then analyze using vi
 
 ## Project Plan
 - [ ] **PHASE 1️⃣**: Conceptual Schema Design
-    - [x] Create [Entity-Relationship Diagram](#entity-relationship-diagram) *(1 Oct 2024)*
+    - [x] Create [Entity-Relationship Diagram](#entity-relationship-diagram) *(2 Oct 2024)*
     - [x] [Relational Data Model](#relational-data-model) *(2 Oct 2024)*
     - [ ] Database [Normalization](#normalization) for Data Integrity
 - [ ] **PHASE 2️⃣**: Physical Database Design
