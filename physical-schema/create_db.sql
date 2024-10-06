@@ -21,15 +21,15 @@ CREATE TABLE person (
 
 CREATE TABLE shoe (
     shoe_id             INT AUTO_INCREMENT,         -- primary key
-    brand               VARCHAR(50) NOT NULL,       -- e.x. Nike
-    model               VARCHAR(50) NOT NULL,       -- e.x. Downshifter
-    version             VARCHAR(10),                -- e.x. 12
+    brand               VARCHAR(50) NOT NULL,       -- shoe brand, e.x. Nike
+    model               VARCHAR(50) NOT NULL,       -- shoe model, e.x. Downshifter
+    version             VARCHAR(10),                -- nullable, shoe version, e.x. 12
     PRIMARY KEY (shoe_id)
 );
 
 CREATE TABLE pair (
     pair_id             INT AUTO_INCREMENT,     -- primary key
-    pair_name       VARCHAR(50) NOT NULL DEFAULT 'Unnamed Pair',    -- personal name for pair of shoes
+    pair_name           VARCHAR(50) NOT NULL DEFAULT 'Unnamed Pair',    -- personal name for pair of shoes
     date_purchased      DATE,                   -- nullable, to track pair age
     owner_id            INT NOT NULL,           -- foreign key to person table
     shoe_id             INT NOT NULL,           -- foreign key to shoe table
