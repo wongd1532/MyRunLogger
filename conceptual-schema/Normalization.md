@@ -1,29 +1,39 @@
 # Database Normalization for Data Integrity
+The goal of the normalization process was to ensure good data structure (integrity) and eliminate redundant data.
 
-We aim to normalize the database to ensure good data structure (integrity) and eliminate redundant data. Below, the normalization process is demonstrated for this database:
+Several iterations of the ERD and Relational Data Model were needed to achieve the current refined conceptual schema. During this process, I learned some new concepts and have highlighted major iterations and considerations below:
 
-## First Normal Form
+## Removing Data Redundancy: Person - Pair - Shoe
+Initially, this relationship was only represented by the person and shoe entity. Through normalization, I realized that I could reduce data redunancy by separating the Shoes records into Shoes and Pair records, where pairs exist as a pair of a specific kind of shoe.
 
-- [x] Each cell contains a single atomic value
-- [x] All tables have a unique super key:
-  - person(**person*id***, fname, lname)
-  - shoe(**shoe_id**, brand, model, version, person_id)
-  - run(**run_id**, start_date, weather, social, route_id)
-  - route(**route_id**, name, distance, elevation_gain, start_location, end_location)
-  - location(**location_id**, name, latitude, longitude, city, country)
-  - goal(**goal_id**, start_date, target_date, creation_date, achievement_date, person_id)
-  - duration_goal(**goal_id**, duration)
-  - distance_goal(**goal_id**, distance)
-  - person_run_shoe(**person_id**, **run_id**, shoe_id, duration)
+## Associative Entity and Ternary Relationship: Person - Run - Pair
+Although I learned about the basic Chen ERD notation in database courses (CS 330, CS 338), I was not taught about Associative Entities or Ternary Relationships. In this situation, using an associative entity makes sense to represent the relationship between the person, run, and pair entities: A person runs a run with a pair of shoes. 
 
-## Second Normal Form
+To capture this, I created an associative entity (person_run) between person and run. Each record in this relation represents each person's version of a run, hence there are run metrics specific to each record. Even though multiple people can participate in a single run, they may stray from the route resulting in varying distances or elevation gains, or run for different durations.
 
-- [x] Database is in First Normal Form
-- [x] All non-prime attributes are functionally dependent on the primary key (minimal super key)
+Additionally, each person must use exactly one pair of shoes for a run, and a pair can be used for many runs. This relationship's cardinality and ordinality can be represented as:
+- Total participation from person_run, exactly one
+- Partial participation from pair, zero or many
 
-## Third Normal Form
+So it makes sense to include the pair_id field in the person_run relation.
 
-- [x] Database is in Second Normal Form
-- [x] All non-prime attributes are only dependent on the table's primary key
+## Crow's Foot Notation for Relational Data Model
+I was taught basic Chen ERD notation in school, but often saw and didn't bother learning the unfamiliar Crow's Foot Notation. Needing to create an ERD diagram and Relational Data Model, I used this as an opportunity to learn the Crow's Foot Notation.
 
-For the purposes of our database, Third Normal Form suffices and we terminate the normalization process.
+Previously, I would create relational data models by listing tables and their fields horizontally, then drawing arrows to foreign keys. I created a more compact and simple Relational Data Model using Crow's Foot Notation.
+
+## Normal Forms: BCNF vs 3NF
+For the purpose of this database, it's acceptable to not use Boyce-Codd Normal Form (BCNF) because this project is small-scale enough that the overhead of enforcing BCNF is inefficient.
+
+Instead, we can verify that the database is indeed in Third Normal Form (3NF):
+
+### First Normal Form
+- [x] No multivalued attributes
+- [x] No repeating records
+
+### Second Normal Form
+- [x] All non-key attributes are fully functionally dependent on the entire primary key
+- [x] For composite primary keys, no non-key attribute is dependent on just part of the key
+
+### Third Normal Form
+- [x] All non-prime attributes only depend on prime attributes

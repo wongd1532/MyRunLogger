@@ -28,11 +28,12 @@ CREATE TABLE shoe (
 );
 
 CREATE TABLE pair (
-    pair_id             INT AUTO_INCREMENT,     -- primary key
-    pair_name           VARCHAR(50) NOT NULL DEFAULT 'Unnamed Pair',    -- personal name for pair of shoes
-    date_purchased      DATE,                   -- nullable, to track pair age
-    owner_id            INT NOT NULL,           -- foreign key to person table
-    shoe_id             INT NOT NULL,           -- foreign key to shoe table
+    pair_id             INT AUTO_INCREMENT,         -- primary key
+    pair_name           VARCHAR(50) NOT NULL
+                        DEFAULT 'Unnamed Pair',    -- personal name for pair of shoes
+    date_purchased      DATE,                       -- nullable, to track pair age
+    owner_id            INT NOT NULL,               -- foreign key to person table
+    shoe_id             INT NOT NULL,               -- foreign key to shoe table
     PRIMARY KEY (pair_id),
     FOREIGN KEY (owner_id) REFERENCES person(person_id)
         ON DELETE CASCADE       -- deleting person deletes their pairs of shoes
@@ -43,12 +44,13 @@ CREATE TABLE pair (
 );
 
 CREATE TABLE location (
-    location_id         INT AUTO_INCREMENT,         -- primary key
-    location_name       VARCHAR(50) NOT NULL,       -- location name
-    city                VARCHAR(50) NOT NULL,       -- city name
-    country             VARCHAR(50) NOT NULL,       -- country name
-    latitude            DECIMAL(9, 6),              -- nullable latitude
-    longitude           DECIMAL(9, 6),              -- nullable longitude
+    location_id         INT AUTO_INCREMENT,             -- primary key
+    location_name       VARCHAR(50) NOT NULL
+                        DEFAULT 'Unnamed Location',     -- location name
+    city                VARCHAR(50) NOT NULL,           -- city name
+    country             VARCHAR(50) NOT NULL,           -- country name
+    latitude            DECIMAL(9, 6),                  -- nullable latitude
+    longitude           DECIMAL(9, 6),                  -- nullable longitude
     PRIMARY KEY (location_id),
     CHECK chk_location_latitude_valid (latitude BETWEEN -90 AND 90),        -- valid range for latitude
     CHECK chk_location_longitude_valid (longitude BETWEEN -180 AND 180)     -- valid range for longitude

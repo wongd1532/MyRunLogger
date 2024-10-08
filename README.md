@@ -4,10 +4,11 @@ This project was started 9/30/2024.
 Goal: create a database for logging personal running data, then analyze using visualization tools to get valuable insights.
 
 ## Project Plan
-- [x] **PHASE 1️⃣**: Conceptual Schema Design *(1 Oct 2024 - 3 Oct 2024)*
-    - [x] Create [Entity-Relationship Diagram](#entity-relationship-diagram) *(1 Oct 2024)*
-    - [x] [Relational Data Model](#relational-data-model) *(2 Oct 2024)*
-    - [x] Database [Normalization](#normalization) for Data Integrity *(3 Oct 2024)*
+- [x] **PHASE 1️⃣**: Conceptual Schema Design *(1 Oct 2024 - 9 Oct 2024)*
+    - [x] Create [Entity-Relationship Diagram](#entity-relationship-diagram) *(7 Oct 2024)*
+    - [x] [Relational Data Model](#relational-data-model) *(8 Oct 2024)*
+    - [x] Database [Normalization](#normalization) for Data Integrity *(9 Oct 2024)*
+    - [ ] Assumptions and Constraints
 - [ ] **PHASE 2️⃣**: Physical Database Design
     - [ ] Write Database creation DDL statements in SQL
     - [ ] Execute SQL statements to create database in MySQL
@@ -26,4 +27,8 @@ Goal: create a database for logging personal running data, then analyze using vi
 ![MyRunLogger Relational-Data-Model](https://github.com/wongd1532/MyRunLogger/blob/main/conceptual-schema/relational-data-model.jpg?raw=true)
 
 ### Normalization
-Database [Normalization](conceptual-schema/Normalization.md) for Data Integrity
+Database [Normalization](conceptual-schema/normalization.md) for Data Integrity
+
+### Assumptions and Constraints
+[Assumptions and Constraints explanations](conceptual-schema/assumptions-and-constraints.md)
+
