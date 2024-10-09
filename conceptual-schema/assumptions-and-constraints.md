@@ -4,7 +4,7 @@ This list of assumptions and constraints clarifies any ambiguous interactions or
 ## Entities and Attributes
 - Each person is represented by a `person` entity
     - All `person`s must have a `fname`, `lname`, `birthdate`, and `gender`
-    - `gender` is defaulted to `"Unspecified"` and can be one of `"Male"`, `"Female"`, `"Non-Binary"`, or `"Other"`
+    - `gender` is defaulted to `'Unspecified'` and can be one of `'Unspecified'`, `'Male'`, `'Female'`, `'Non-Binary'`, or `'Other'`
     - A `person` can optionally have a `height` and `weight`
     - If `height` exists, it must be positive
     - If `weight` exists, it must be positive
@@ -13,23 +13,24 @@ This list of assumptions and constraints clarifies any ambiguous interactions or
     - A `shoe` can optionally have a `version`
 - Each pair of shoes is represented by a `pair` entity
     - All `pair`s must have a `pair_name`, `owner_id`, and `shoe_id`
-    - `pair_name` is defaulted to `"Unnamed Pair"`
+    - `pair_name` is defaulted to `'Unnamed Pair'`
     - A `pair` can optionally have a `date_purchased`
     - If `date_purchased` exists, it must not be in the future
 - Each location is represented by a `location` entity
-    - All `location`s must have a `location`, `city`, and `country`
-    - `location_name` is defaulted to `"Unnamed Location"`
+    - All `location`s must have a `location_name`, `city`, and `country`
+    - `location_name` is defaulted to `'Unnamed Location'`
     - A `location` can optionally have a `latitude` and `longitude`
     - If `latitude` exists, it must be between -90 and 90
     - If `longitude` exists, it must be between -180 and 180
 - Each route is represented by a `route` entity
     - All `route`s must have a `route_name`, `route_distance`, `route_elevation_gain`, `start_location_id`, and `end_location_id`
-    - `route_name` is defaulted to `"Unnamed Route"`
+    - `route_name` is defaulted to `'Unnamed Route'`
     - `route_elevation_gain` is defaulted to `0`
+    - `route_distance` must be positive
 - Each run is represented by a `run` entity
-    - All `run`s must have a `run_name`, `run_start_datetime`, `run_social_type`, and `route_id`
-    - `run_name` is defaulted to `"Unnamed Run"`
-    - `run_social_type` is defaulted to `"Unspecified"` and can be one of `"Solo"`, `"Partner"`, `"Small Group"`, `"Large Group"`, or `"Race"`
+    - All `run`s must have a `run_name`, `run_start_datetime`, `social_type`, and `route_id`
+    - `run_name` is defaulted to `'Unnamed Run'`
+    - `run_social_type` is defaulted to `'Unspecified'` and can be one of `'Unspecified'`, `'Solo'`, `'Partner'`, `'Small Group'`, `'Large Group'`, or `'Race'`
     - A `run` can optionally have a `weather_desc`
 - Every instance of a person completing a run is represented by a `person_run` associative entity
     - All `person_run`s must have a `duration_ran`, `distance_ran`, `elevation_gain_ran`, `runner_id`, `run_id`, and `pair_id`
@@ -39,12 +40,10 @@ This list of assumptions and constraints clarifies any ambiguous interactions or
         - All `duration_goals` must have a `goal_duration`
         - All `distance_goals` must have a `goal_distance`
     - All `goal`s must have a `goal_start_date`, `goal_target_date`, `completion_status`, and `person_id`
-    - `completion_status` is defaulted to `"Incomplete"` and can be either `"Incomplete"` or `"Complete"`
+    - `completion_status` is defaulted to `'Incomplete'` and can be either `'Incomplete'` or `'Complete'`
     - A `goal`'s `goal_target_date` must not be before the `goal_start_date`
     - A `goal` can optionally have a `completion_date`
-    - If the `completion_date` exists, it must not be before the `start_date`
-    - If a goal has no `completion_date`, then `completion_status` is `"Incomplete"`
-    - If a goal has a `completion_date`, then `completion_date` must not be before `start_date` and `completion_status` is `"Complete"`
+    - If the `completion_date` does not exists, `completion_status` is `'Incomplete'`, otherwise, `completion_date` is not before `goal_start_date` and `completion_date` is not in the future and `completion_status` is `'Complete'`
 
 ## Relationships
 - A `person` can have *0 or many* `goal`s, but `goal`s must be owned by *one and only one* `person`
