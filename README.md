@@ -7,8 +7,8 @@ Goal: create a database for logging personal running data, then analyze using vi
 - [x] **PHASE 1️⃣**: Conceptual Schema Design *(1 Oct 2024 - 9 Oct 2024)*
     - [x] Create [Entity-Relationship Diagram](#entity-relationship-diagram) *(7 Oct 2024)*
     - [x] [Relational Data Model](#relational-data-model) *(8 Oct 2024)*
-    - [x] Database [Normalization](#normalization) for Data Integrity *(9 Oct 2024)*
-    - [ ] Assumptions and Constraints
+    - [x] Database [Normalization](#normalization) for Data Integrity *(8 Oct 2024)*
+    - [x] [Assumptions and Constraints](#assumptions-and-constraints) *(9 Oct 2024)*
 - [ ] **PHASE 2️⃣**: Physical Database Design
     - [ ] Write Database creation DDL statements in SQL
     - [ ] Execute SQL statements to create database in MySQL

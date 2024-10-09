@@ -90,7 +90,7 @@ CREATE TABLE run (
 CREATE TABLE person_run (
     runner_id           INT,                        -- primary key, foreign key to person table
     run_id              INT,                        -- primary key, foreign key to run table
-    pair_id             INT NULL,                   -- foreign key to pair table, nullable if pair of shoes is deleted
+    pair_id             INT,                        -- foreign key to pair table, nullable if pair of shoes is deleted
     duration_ran        TIME NOT NULL,              -- duration ran by runner during run
     distance_ran        DECIMAL(10, 1) NOT NULL,    -- distance ran by runner during run
     PRIMARY KEY (runner_id, run_id),
@@ -101,7 +101,7 @@ CREATE TABLE person_run (
         ON DELETE CASCADE       -- deleting run deletes person's run
         ON UPDATE CASCADE,      -- updating run updates person's run
     FOREIGN KEY (pair_id) REFERENCES pair(pair_id)
-        ON DELETE SET NULL      -- deleting pair of shoes doesn't delete person's run
+        ON DELETE RESTRICT      -- deleting pair of shoes doesn't delete person's run
         ON UPDATE CASCADE       -- updating pair of shoes updates person's run
 );
 
@@ -118,9 +118,8 @@ CREATE TABLE goal (
         ON UPDATE CASCADE,      -- updating person updates person's goals
     CHECK chk_target_after_start (target_date >= start_date),               -- target date must be after start date
     CHECK chk_completion_valid
-        (completion_date IS NULL OR completion_date >= start_date),         -- if completion date exists, completion date is after start date
-    CHECK chk_completion_status_correct
-        (completion_status = 'Incomplete' OR completion_date IS NOT NULL)   -- if completion_status is complete, completion_date is not null
+        (completion_date IS NULL AND completion_status = 'Incomplete'           -- if completion date dne, completion_status is 'Incomplete'
+         OR completion_date >= start_date AND completion_status = 'Complete')   -- existing completion_date must be after start date and completion_status is 'Complete'
 );
 
 CREATE TABLE duration_goal (
