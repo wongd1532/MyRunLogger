@@ -1,10 +1,10 @@
-CREATE DATABASE my_run_logger_db
+CREATE DATABASE IF NOT EXISTS my_run_logger_db
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
 
 USE my_run_logger_db;
 
-CREATE TABLE person (
+CREATE TABLE IF NOT EXISTS person (
     person_id           INT AUTO_INCREMENT,         -- primary key
     fname               VARCHAR(50) NOT NULL,       -- first name
     lname               VARCHAR(50) NOT NULL,       -- last name
@@ -14,15 +14,15 @@ CREATE TABLE person (
     gender              ENUM('Unspecified', 'Male', 'Female',
                              'Non-Binary', 'Other') NOT NULL,   -- gender options
     PRIMARY KEY (person_id),
-    CHECK chk_person_birthdate_past
+    CONSTRAINT chk_person_birthdate_past CHECK
         (birthdate < CURRENT_DATE),         -- person must be born in past
-    CHECK chk_person_height_pos
+    CONSTRAINT chk_person_height_pos CHECK
         (height IS NULL OR height > 0),     -- person height is null or positive
-    CHECK chk_person_weight_pos
+    CONSTRAINT chk_person_weight_pos CHECK
         (weight IS NULL OR weight > 0)      -- person weight is null or positive
 );
 
-CREATE TABLE shoe (
+CREATE TABLE IF NOT EXISTS shoe (
     shoe_id             INT AUTO_INCREMENT,         -- primary key
     brand               VARCHAR(50) NOT NULL,       -- shoe brand, e.x. Nike
     model               VARCHAR(50) NOT NULL,       -- shoe model, e.x. Downshifter
@@ -30,7 +30,7 @@ CREATE TABLE shoe (
     PRIMARY KEY (shoe_id)
 );
 
-CREATE TABLE pair (
+CREATE TABLE IF NOT EXISTS pair (
     pair_id             INT AUTO_INCREMENT,         -- primary key
     pair_name           VARCHAR(50) NOT NULL
                         DEFAULT 'Unnamed Pair',     -- personal name for pair of shoes
@@ -44,12 +44,12 @@ CREATE TABLE pair (
     FOREIGN KEY (shoe_id) REFERENCES shoe(shoe_id)
         ON DELETE RESTRICT      -- cannot delete shoe if a pair of that shoe exists
         ON UPDATE CASCADE       -- updating shoe updates pairs of that shoe
-    CHECK chk_pair_date_purchased_valid
+    CONSTRAINT chk_pair_date_purchased_valid CHECK
         (date_purchased IS NULL
          OR date_purchased <= CURRENT_DATE)     -- if date_purchased exists, it is not in future
 );
 
-CREATE TABLE location (
+CREATE TABLE IF NOT EXISTS location (
     location_id         INT AUTO_INCREMENT,             -- primary key
     location_name       VARCHAR(50) NOT NULL
                         DEFAULT 'Unnamed Location',     -- location name
@@ -58,13 +58,13 @@ CREATE TABLE location (
     latitude            DECIMAL(9, 6),                  -- nullable latitude
     longitude           DECIMAL(9, 6),                  -- nullable longitude
     PRIMARY KEY (location_id),
-    CHECK chk_location_latitude_valid
+    CONSTRAINT chk_location_latitude_valid CHECK
         (latitude BETWEEN -90 AND 90),      -- valid range for latitude
-    CHECK chk_location_longitude_valid
+    CONSTRAINT chk_location_longitude_valid CHECK
         (longitude BETWEEN -180 AND 180)    -- valid range for longitude
 );
 
-CREATE TABLE route (
+CREATE TABLE IF NOT EXISTS route (
     route_id                INT AUTO_INCREMENT,         -- primary key
     route_name              VARCHAR(50) NOT NULL
                             DEFAULT 'Unnamed Route',    -- route name
@@ -79,11 +79,11 @@ CREATE TABLE route (
     FOREIGN KEY (end_location_id) REFERENCES location(location_id)
         ON DELETE RESTRICT      -- cannot delete location if route ends at location
         ON UPDATE CASCADE,      -- updating location updates route
-    CHECK chk_route_distance_pos
+    CONSTRAINT chk_route_distance_pos CHECK
         (route_distance > 0)    -- route distance must be positive
 );
 
-CREATE TABLE run (
+CREATE TABLE IF NOT EXISTS run (
     run_id                  INT AUTO_INCREMENT,         -- primary key
     run_name                VARCHAR(50) NOT NULL
                             DEFAULT 'Unnamed Run',      -- run name
@@ -98,7 +98,7 @@ CREATE TABLE run (
         ON UPDATE SET NULL      -- updating route doesn't update route for past runs on that route
 );
 
-CREATE TABLE person_run (
+CREATE TABLE IF NOT EXISTS person_run (
     duration_ran            TIME NOT NULL,              -- duration ran by runner during run
     distance_ran            DECIMAL(10, 1) NOT NULL,    -- distance in km ran by runner during run
     elevation_gain_ran      INT NOT NULL DEFAULT 0,     -- elevation gain ran in meters by runner during run
@@ -117,7 +117,7 @@ CREATE TABLE person_run (
         ON UPDATE CASCADE       -- updating pair of shoes updates person's run
 );
 
-CREATE TABLE goal (
+CREATE TABLE IF NOT EXISTS goal (
     goal_id                 INT AUTO_INCREMENT,     -- primary key
     goal_start_date         DATE NOT NULL,          -- start date for goal period
     goal_target_date        DATE NOT NULL,          -- end date for goal period
@@ -129,9 +129,9 @@ CREATE TABLE goal (
     FOREIGN KEY (person_id) REFERENCES person(person_id)
         ON DELETE CASCADE       -- deleting person deletes person's goals
         ON UPDATE CASCADE,      -- updating person updates person's goals
-    CHECK chk_target_after_start
+    CONSTRAINT chk_target_after_start CHECK
         (target_date >= start_date),                -- target date must be after start date
-    CHECK chk_completion_valid
+    CONSTRAINT chk_completion_valid CHECK
         (completion_date IS NULL
          AND completion_status = 'Incomplete'       -- if completion date dne, completion_status is 'Incomplete'
          OR completion_date >= goal_start_date      -- else, completion_date is not before goal_start_date
@@ -139,7 +139,7 @@ CREATE TABLE goal (
             AND completion_status = 'Complete')     -- and completion_status is 'Complete'
 );
 
-CREATE TABLE duration_goal (
+CREATE TABLE IF NOT EXISTS duration_goal (
     goal_duration       TIME NOT NULL,      -- total goal duration
     goal_id             INT                 -- primary key, foreign key to goal table
     PRIMARY KEY (goal_id),
@@ -148,13 +148,13 @@ CREATE TABLE duration_goal (
         ON UPDATE CASCADE       -- updating super class goal record updates subclass duration_goal
 );
 
-CREATE TABLE distance_goal (
+CREATE TABLE IF NOT EXISTS distance_goal (
     goal_distance       DECIMAL(10, 1) NOT NULL,    -- total goal distance in km
     goal_id             INT                         -- primary key, foreign key to goal table
     PRIMARY KEY (goal_id),
     FOREIGN KEY (goal_id) REFERENCES goal(goal_id)
         ON DELETE CASCADE       -- deleting super class goal record deletes subclass distance_goal
         ON UPDATE CASCADE       -- updating super class goal record updates subclass distance_goal
-    CHECK chk_distance_goal_pos
+    CONSTRAINT chk_distance_goal_pos CHECK
         (distance > 0)          -- goal distance is positive
 );
