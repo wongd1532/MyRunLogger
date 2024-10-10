@@ -15,7 +15,6 @@ This list of assumptions and constraints clarifies any ambiguous interactions or
     - All `pair`s must have a `pair_name`, `owner_id`, and `shoe_id`
     - `pair_name` is defaulted to `'Unnamed Pair'`
     - A `pair` can optionally have a `date_purchased`
-    - If `date_purchased` exists, it must not be in the future
 - Each location is represented by a `location` entity
     - All `location`s must have a `location_name`, `city`, and `country`
     - `location_name` is defaulted to `'Unnamed Location'`
@@ -43,7 +42,7 @@ This list of assumptions and constraints clarifies any ambiguous interactions or
     - `completion_status` is defaulted to `'Incomplete'` and can be either `'Incomplete'` or `'Complete'`
     - A `goal`'s `goal_target_date` must not be before the `goal_start_date`
     - A `goal` can optionally have a `completion_date`
-    - If the `completion_date` does not exists, `completion_status` is `'Incomplete'`, otherwise, `completion_date` is not before `goal_start_date` and `completion_date` is not in the future and `completion_status` is `'Complete'`
+    - If the `completion_date` does not exists, `completion_status` is `'Incomplete'`, otherwise, `completion_date` is not before `goal_start_date` and `completion_status` is `'Complete'`
 
 ## Relationships
 - A `person` can have *0 or many* `goal`s, but `goal`s must be owned by *one and only one* `person`

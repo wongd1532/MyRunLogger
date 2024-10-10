@@ -14,8 +14,6 @@ CREATE TABLE IF NOT EXISTS person (
     gender              ENUM('Unspecified', 'Male', 'Female',
                              'Non-Binary', 'Other') NOT NULL,   -- gender options
     PRIMARY KEY (person_id),
-    CONSTRAINT chk_person_birthdate_past CHECK
-        (birthdate < CURRENT_DATE),         -- person must be born in past
     CONSTRAINT chk_person_height_pos CHECK
         (height IS NULL OR height > 0),     -- person height is null or positive
     CONSTRAINT chk_person_weight_pos CHECK
@@ -44,9 +42,6 @@ CREATE TABLE IF NOT EXISTS pair (
     FOREIGN KEY (shoe_id) REFERENCES shoe(shoe_id)
         ON DELETE RESTRICT      -- cannot delete shoe if a pair of that shoe exists
         ON UPDATE CASCADE       -- updating shoe updates pairs of that shoe
-    CONSTRAINT chk_pair_date_purchased_valid CHECK
-        (date_purchased IS NULL
-         OR date_purchased <= CURRENT_DATE)     -- if date_purchased exists, it is not in future
 );
 
 CREATE TABLE IF NOT EXISTS location (
@@ -94,8 +89,8 @@ CREATE TABLE IF NOT EXISTS run (
     route_id                INT NOT NULL,               -- foreign key to route table
     PRIMARY KEY (run_id),
     FOREIGN KEY (route_id) REFERENCES route(route_id)
-        ON DELETE SET NULL      -- deleting route doesn't delete all runs on that route
-        ON UPDATE SET NULL      -- updating route doesn't update route for past runs on that route
+        ON DELETE RESTRICT      -- cannot delete route if a run is on a route
+        ON UPDATE CASCADE       -- updating route doesn't updates route for past runs on that route
 );
 
 CREATE TABLE IF NOT EXISTS person_run (
@@ -130,18 +125,17 @@ CREATE TABLE IF NOT EXISTS goal (
         ON DELETE CASCADE       -- deleting person deletes person's goals
         ON UPDATE CASCADE,      -- updating person updates person's goals
     CONSTRAINT chk_target_after_start CHECK
-        (target_date >= start_date),                -- target date must be after start date
+        (goal_target_date >= goal_start_date),                -- target date must be after start date
     CONSTRAINT chk_completion_valid CHECK
         (completion_date IS NULL
          AND completion_status = 'Incomplete'       -- if completion date dne, completion_status is 'Incomplete'
          OR completion_date >= goal_start_date      -- else, completion_date is not before goal_start_date
-            AND completion_date <= CURRENT_DATE     -- and completion_date is not in future
             AND completion_status = 'Complete')     -- and completion_status is 'Complete'
 );
 
 CREATE TABLE IF NOT EXISTS duration_goal (
     goal_duration       TIME NOT NULL,      -- total goal duration
-    goal_id             INT                 -- primary key, foreign key to goal table
+    goal_id             INT,                -- primary key, foreign key to goal table
     PRIMARY KEY (goal_id),
     FOREIGN KEY (goal_id) REFERENCES goal(goal_id)
         ON DELETE CASCADE       -- deleting super class goal record deletes subclass duration_goal
@@ -150,11 +144,11 @@ CREATE TABLE IF NOT EXISTS duration_goal (
 
 CREATE TABLE IF NOT EXISTS distance_goal (
     goal_distance       DECIMAL(10, 1) NOT NULL,    -- total goal distance in km
-    goal_id             INT                         -- primary key, foreign key to goal table
+    goal_id             INT,                        -- primary key, foreign key to goal table
     PRIMARY KEY (goal_id),
     FOREIGN KEY (goal_id) REFERENCES goal(goal_id)
         ON DELETE CASCADE       -- deleting super class goal record deletes subclass distance_goal
-        ON UPDATE CASCADE       -- updating super class goal record updates subclass distance_goal
+        ON UPDATE CASCADE,      -- updating super class goal record updates subclass distance_goal
     CONSTRAINT chk_distance_goal_pos CHECK
-        (distance > 0)          -- goal distance is positive
+        (goal_distance > 0)          -- goal distance is positive
 );
