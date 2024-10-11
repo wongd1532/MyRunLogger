@@ -86,11 +86,11 @@ CREATE TABLE IF NOT EXISTS run (
     weather_desc            VARCHAR(50),                -- nullable weather description (e.x. Sunny)
     social_type             ENUM('Unspecified', 'Solo', 'Partner',
                                  'Small Group', 'Large Group', 'Race') NOT NULL, -- type of run
-    route_id                INT NOT NULL,               -- foreign key to route table
+    route_id                INT NULL,                   -- foreign key to route table
     PRIMARY KEY (run_id),
     FOREIGN KEY (route_id) REFERENCES route(route_id)
-        ON DELETE RESTRICT      -- cannot delete route if a run is on a route
-        ON UPDATE CASCADE       -- updating route doesn't updates route for past runs on that route
+        ON DELETE SET NULL      -- cannot delete route if a run is on a route
+        ON UPDATE SET NULL      -- updating route doesn't updates route for past runs on that route
 );
 
 CREATE TABLE IF NOT EXISTS person_run (

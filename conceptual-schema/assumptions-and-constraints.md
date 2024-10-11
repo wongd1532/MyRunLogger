@@ -50,6 +50,6 @@ This list of assumptions and constraints clarifies any ambiguous interactions or
 - A `person` can run *0 or many* `person_run`s, but `person_run`s must be run by exactly *one and only one* `person`
 - A `person_run` must be associated with *one and only one* `run`, but `run`s may be associated with *0 or many* `person_run`s
 - A `pair` can be used on *0 or many* `person_run`s, but `person_run`s must be run with *one and only one* `pair`
-- A `run` must have *one and only one* `route`, but a `route` can be associated with *0 or many* `run`s
+- A `run` can have *0 or one* `route`, but a `route` can be associated with *0 or many* `run`s
 - A `route` must have *one and only one* start `location`, but a `location` can be the start location for *0 or many* `run`s
 - A `route` must have *one and only one* end `location`, but a `location` can be the end location for *0 or many* `run`s
