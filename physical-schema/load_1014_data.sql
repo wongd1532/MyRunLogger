@@ -1,8 +1,5 @@
 USE my_run_logger_db;
 
--- allow loading data from local tables into MySQL tables
-SET GLOBAL local_infile = 1;
-
 -- LOAD PERSON 1014 DATA
 LOAD DATA LOCAL INFILE 'C:\ProgramData\MySQL\MySQL Server 8.0\Data\MyRunLogger_1014_data\person_1014_data.csv'
 INTO TABLE person
@@ -82,6 +79,3 @@ FIELDS TERMINATED BY ','        -- delimiter used in the CSV file (commas)
 LINES TERMINATED BY '\n'        -- lines are typically terminated by newlines
 IGNORE 1 LINES                  -- if your CSV has a header row
 (goal_duration, goal_id);       -- specify the table columns
-
--- reset to original settings
-SET GLOBAL local_infile = 0;

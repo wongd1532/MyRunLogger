@@ -23,10 +23,16 @@ Goal: create a database for logging personal running data, then analyze using vi
 ### [x] 2.1: SQL DDL Script for Database Creation
 - Wrote [create_db.sql](physical-schema/create_db.sql)
 
-### [ ] 2.2: Database Set-Up in MySQL
-- Using MySQL Workbench, locally hosted MySQL server and set up database by running create_db.sql script
+### [x] 2.2: Database Set-Up in MySQL
+- Using MySQL Workbench, locally hosted MySQL server and set up `my_run_logger_db` by running create_db.sql script as root user
 
 ### [ ] 2.3: Data Loading
+- Created user:
+    - Username: `data_loader`
+    - Password: `data_loader_PASSWORD123.`
+- Granted user data_loader following privileges for the `my_run_logger_db` schema: DELETE, EXECUTE, INSERT, SELECT, SHOW VIEW, UPDATE
+- For data loading, run the following command as root user to enable csv loading: `SET GLOBAL local_infile = 1;`
+
 
 ### [ ] 2.4: Data Testing
 
