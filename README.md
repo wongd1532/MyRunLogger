@@ -6,10 +6,10 @@ Goal: create a database for logging personal running data, then analyze using vi
 ## [x] **PHASE 1️⃣**: Conceptual Schema *(1 Oct 2024 - 9 Oct 2024)*
 
 ### [x] 1.1: Create [Entity-Relationship Diagram](conceptual-schema/ERD.jpg)
-- ![MyRunLogger Entity-Relationship-Diagram](https://github.com/wongd1532/MyRunLogger/blob/main/conceptual-schema/ERD.jpg?raw=true)
+![MyRunLogger Entity-Relationship-Diagram](https://github.com/wongd1532/MyRunLogger/blob/main/conceptual-schema/ERD.jpg?raw=true)
 
 ### [x] 1.2: Create [Relational Data Model](conceptual-schema/relational-data-model.jpg)
-- ![MyRunLogger Relational-Data-Model](https://github.com/wongd1532/MyRunLogger/blob/main/conceptual-schema/relational-data-model.jpg?raw=true)
+![MyRunLogger Relational-Data-Model](https://github.com/wongd1532/MyRunLogger/blob/main/conceptual-schema/relational-data-model.jpg?raw=true)
 
 ### [x] 1.3: [x] Database Normalization for Data Integrity
 - Wrote [normalization.md](conceptual-schema/normalization.md) explaining normalization process, considerations, and skill development
