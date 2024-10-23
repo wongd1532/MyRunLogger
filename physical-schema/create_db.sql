@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS route (
     route_id                INT AUTO_INCREMENT,         -- primary key
     route_name              VARCHAR(50) NOT NULL
                             DEFAULT 'Unnamed Route',    -- route name
-    route_distance          DECIMAL(10, 1) NOT NULL,    -- route distance in km to nearest 1 decimal
+    route_distance          DECIMAL(10, 2) NOT NULL,    -- route distance in km
     route_elevation_gain    INT NOT NULL DEFAULT 0,     -- elevation gain in meters
     start_location_id       INT NOT NULL,               -- foreign key to location table
     end_location_id         INT NOT NULL,               -- foreign key to location table
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS run (
 
 CREATE TABLE IF NOT EXISTS person_run (
     duration_ran            TIME NOT NULL,              -- duration ran by runner during run
-    distance_ran            DECIMAL(10, 1) NOT NULL,    -- distance in km ran by runner during run
+    distance_ran            DECIMAL(10, 2) NOT NULL,    -- distance in km ran by runner during run
     elevation_gain_ran      INT NOT NULL DEFAULT 0,     -- elevation gain ran in meters by runner during run
     runner_id               INT NOT NULL,               -- primary key, foreign key to person table
     run_id                  INT NOT NULL,               -- primary key, foreign key to run table
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS duration_goal (
 );
 
 CREATE TABLE IF NOT EXISTS distance_goal (
-    goal_distance       DECIMAL(10, 1) NOT NULL,    -- total goal distance in km
+    goal_distance       DECIMAL(10, 2) NOT NULL,    -- total goal distance in km
     goal_id             INT,                        -- primary key, foreign key to goal table
     PRIMARY KEY (goal_id),
     FOREIGN KEY (goal_id) REFERENCES goal(goal_id)
