@@ -1,5 +1,5 @@
 fname,lname,birthdate,height,weight,gender
 David,Wong,2002-08-17,185,68.2,Male
-Geoffrey,Lee,2002-03-05,180,74.8,Male
+Geoffrey,Lee,2002-03-05,NULL,NULL,Male
 Jim,Polong,2000-05-20,176,78.5,Male
 Jonathan,Wong,2010-12-28,173,66.2,Male

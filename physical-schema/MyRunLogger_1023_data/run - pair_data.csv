@@ -1,9 +1,9 @@
 pair_name,date_purchased,owner_id,shoe_id
 Old Shoes,2022-08-01,1,1
 Neon Runners,2024-09-01,1,2
-,,2,3
-,,2,4
-,,2,5
-,,2,6
-,,3,4
+Unnamed Pair,NULL,2,3
+Unnamed Pair,NULL,2,4
+Unnamed Pair,NULL,2,5
+Unnamed Pair,NULL,2,6
+Unnamed Pair,NULL,3,4
 Everyday shoes,2024-03-01,4,7
